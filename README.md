@@ -6,7 +6,6 @@ A web application for login and register, then authenticate using Node.js in ser
 
 [![Github license](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/hasimy-as/MongoNode-Auth/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/)
-[![Dependencies status ](https://img.shields.io/hackage-deps/v/lens.svg)](https://github.com/hasimy-as/MongoNode-Auth)
 
 ## Version 1.0.1
 
