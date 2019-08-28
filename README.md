@@ -8,9 +8,9 @@ A web application for login and register, then authenticate using Node.js in ser
 [![npm version](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/)
 [![Dependencies status ](https://img.shields.io/hackage-deps/v/lens.svg)](https://github.com/hasimy-as/MongoNode-Auth)
 
-## Version 1.0.0
+## Version 1.0.1
 
-Default version (Will be updated soon, maybe).
+Updated register and login, also login-session.
 
 # Usage
 
