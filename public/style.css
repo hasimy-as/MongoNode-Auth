@@ -1,0 +1,7 @@
+#konten {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  max-width: 960px;
+  margin-left: 100px;
+  margin-right: 100px;
+}

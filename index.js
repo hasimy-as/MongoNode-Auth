@@ -3,7 +3,6 @@ const express = require('express');
 const server = express();
 const bodyParser = require('body-parser');
 const db = require('./mongo');
-const port = 8080 | process.env.PORT;
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
@@ -37,13 +36,14 @@ server.use((req, res, next) => {
   next(err);
 });
 
-// error handler, define as the last server.use callback
-server.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.send(err.message);
-});
+//port declaration
+const port = 8080 | process.env.PORT;
 
-// listen on port
-server.listen(port, () => {
-  console.log(`Listening in ${port}`);
-});
+// error handler, define as the last server.use callback
+// also connected onto port listener
+server
+  .use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.send(err.message);
+  })
+  .listen(port, () => console.log(`Connection established to ${port}!`));

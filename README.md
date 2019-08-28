@@ -21,7 +21,7 @@ First, clone/download the repository.
 
 Secondly, run this command in your CLI/Terminal to install the needed dependencies (npm install --save).
 
-Third, run the app by typing this command in your CLI/Terminal (npm start.)
+Third, run the app by typing this command in your CLI/Terminal (npm run dev)
 
 ```
 

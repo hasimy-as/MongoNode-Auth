@@ -2,9 +2,14 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
-// get homepage
+// get login page
 router.get('/', (req, res, next) => {
   res.render('index');
+});
+
+// get register page
+router.get('/register', (req, res) => {
+  res.render('register');
 });
 
 // post login/register info
@@ -13,7 +18,7 @@ router.post('/', (req, res, next) => {
     let err = new Error("Password doesn't match!");
     err.status = 400;
     res.send("Password doesn't match!");
-    return next(err);
+    next(err);
   }
 
   if (
@@ -31,10 +36,10 @@ router.post('/', (req, res, next) => {
 
     User.create(userData, (error, user) => {
       if (error) {
-        return next(error);
+        next(error);
       } else {
         req.session.userId = user._id;
-        return res.redirect('/profile');
+        res.redirect('/profile');
       }
     });
   } else if (req.body.logemail && req.body.logpassword) {
@@ -45,17 +50,17 @@ router.post('/', (req, res, next) => {
         if (error || !user) {
           let err = new Error('Wrong email or password!');
           err.status = 401;
-          return next(err);
+          next(err);
         } else {
           req.session.userId = user._id;
-          return res.redirect('/profile');
+          res.redirect('/profile');
         }
       }
     );
   } else {
     let err = new Error('All fields are required!');
     err.status = 400;
-    return next(err);
+    next(err);
   }
 });
 
@@ -63,20 +68,18 @@ router.post('/', (req, res, next) => {
 router.get('/profile', (req, res, next) => {
   User.findById(req.session.userId).exec((error, user) => {
     if (error) {
-      return next(error);
+      next(error);
     } else {
       if (user === null) {
-        let err = new Error('Not authorized! Go back!');
-        err.status = 400;
-        return next(err);
+        setTimeout(function() {
+          let err = new Error('Not authorized! Go back!');
+          err.status = 400;
+          next(err);
+        }, 1000);
       } else {
-        return res.send(
-          '<h2>Your name: </h2>' +
-            user.username +
-            '<h2>Your email: </h2>' +
-            user.email +
-            '<br><a type="button" href="/logout">Logout</a>'
-        );
+        res.render('hello', {
+          show: user
+        });
       }
     }
   });
@@ -88,12 +91,13 @@ router.get('/logout', (req, res, next) => {
     // delete session object
     req.session.destroy(err => {
       if (err) {
-        return next(err);
+        next(err);
       } else {
-        return res.redirect('/');
+        res.redirect('/');
       }
     });
   }
 });
 
+//exporting router
 module.exports = router;
